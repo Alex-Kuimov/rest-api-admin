@@ -3,12 +3,14 @@
         <button type="button" class="btn btn-secondary btn-block mb-2" @click="back">
           Назад
         </button>
-        <p><strong>Имя:</strong> {{ item.name }}</p>
+
+        <p class="h3 mb-4">{{ item.name }}</p>
+
         <p v-if="item.hasOwnProperty('value')"><strong>Значение:</strong> {{ item.value }}</p>
 
-        <p v-for="field in fields">
-            <strong>{{ field.label }}:</strong> {{ field.value }}
-        </p>
+        <div v-for="field in fields">
+            <p v-if="field.value"><strong>{{ field.label }}:</strong> {{ field.value }}</p>
+        </div>
 
         <p v-if="item.created_at">
           <strong>Созданно:</strong> {{ item.created_at }}
@@ -17,7 +19,10 @@
         <p v-if="item.updated_at">
           <strong>Изменено:</strong> {{ item.updated_at }}
         </p>
-        <button type="button" class="btn btn-primary btn-block mb-2" @click="edit=!edit">Редактировать</button>
+
+        <button type="button" class="btn btn-primary btn-block mb-2" @click="edit=!edit">
+          Редактировать
+        </button>
     </div>
 
     <StoreForm v-if="edit" action="update" :id="id"></StoreForm>
@@ -37,7 +42,7 @@ export default {
     data(){
         return {
             fields: [],
-            edit: false
+            edit: false,
         }
     },
     computed: {

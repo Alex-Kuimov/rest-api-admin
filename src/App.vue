@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { initStore, loadStore } from "./store/store";
+import { initStore } from "./store/store";
 import NavBar from "./components/NavBar.vue"
 import Notification from "./components/Notification.vue";
 import DataMixin from "./mixins/DataMixin";

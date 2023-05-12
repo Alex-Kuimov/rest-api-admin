@@ -1,16 +1,18 @@
 import axios from "axios";
 import { data } from "../data/data";
+//import * as process from "eslint-plugin-vue";
 
 const DataMixin = {
     methods: {
         getItems(type) {
             const token = localStorage['token'];
+            const apiUrl = process.env.VUE_APP_API_URL;
 
             const formData = new FormData();
             formData.append('method', 'get');
 
             axios.post(
-                'http://127.0.0.1/rest-api/'+type+'/',
+                apiUrl+'/'+type,
                 formData,
                 {
                     headers:{
@@ -28,6 +30,7 @@ const DataMixin = {
         },
         storeItem(item, action){
             const token = localStorage['token'];
+            const apiUrl = process.env.VUE_APP_API_URL;
 
             const formData = new FormData();
 
@@ -47,7 +50,7 @@ const DataMixin = {
             });
 
             axios.post(
-                'http://127.0.0.1/rest-api/'+item.type+'/',
+                apiUrl+'/'+item.type,
                 formData,
                 {
                     headers:{
@@ -66,6 +69,7 @@ const DataMixin = {
         },
         deleteItem(item){
             const token = localStorage['token'];
+            const apiUrl = process.env.VUE_APP_API_URL;
 
             const formData = new FormData();
 
@@ -73,7 +77,7 @@ const DataMixin = {
             formData.append('method', 'delete');
 
             axios.post(
-                'http://127.0.0.1/rest-api/'+item.type+'/',
+                apiUrl+'/'+item.type,
                 formData,
                 {
                     headers:{

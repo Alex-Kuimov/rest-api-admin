@@ -2,7 +2,9 @@
     <div class="container mt-2">
         <p class="h3">{{title}}</p>
         <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-primary btn-block mb-2" @click="toCreateForm">+ Создать</button>
+            <button type="button" class="btn btn-primary btn-block mb-2" @click="toCreateForm">
+              + Создать
+            </button>
         </div>
         <div v-if="items" class="list-group">
             <div v-for="(item,index) in items" class="list-group-item list-group-item-action">

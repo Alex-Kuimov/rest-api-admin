@@ -30,6 +30,13 @@ export const data = {
                 placeholder: 'Введите текст',
                 value: ''
             },
+            date: {
+                label: 'Дата и время',
+                name: 'date',
+                type: 'date',
+                placeholder: 'Введите текст',
+                value: ''
+            },
         }
     },
     books : {
