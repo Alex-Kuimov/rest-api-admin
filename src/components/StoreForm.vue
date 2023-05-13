@@ -51,16 +51,14 @@ export default {
     },
     computed: {
         item() {
-            const instance = this.$route.meta.instance;
-
             if(this.action === 'create') {
                 const newItem = {
                     name: '',
-                    type: instance,
+                    type: this.instance,
                     meta: {},
                 }
 
-                if(instance === 'options'){
+                if(this.instance === 'options'){
                     return {...newItem, value: ''};
                 }
 
@@ -69,12 +67,15 @@ export default {
 
             if(this.action === 'update') {
                 return {
-                    ...this.store[instance][this.id],
-                    type: instance,
+                    ...this.store[this.instance][this.id],
+                    type: this.instance,
                 }
             }
 
             return null;
+        },
+        instance(){
+            return this.$route.meta.instance
         },
         btnTitle(){
             return this.action === 'update' ? 'Сохранить' : 'Добавить'

@@ -48,17 +48,18 @@ export default {
     },
     computed: {
         item() {
-            const instance = this.$route.meta.instance;
-
             return {
-                ...this.store[instance][this.id],
-                type: instance,
+                ...this.store[this.instance][this.id],
+                type: this.instance,
             }
         },
+        instance(){
+            return this.$route.meta.instance
+        }
     },
     methods: {
       back(){
-          this.$router.push('/' + this.$route.meta.instance);
+          this.$router.push('/' + this.instance);
       }
     },
     setup() {
@@ -69,5 +70,6 @@ export default {
         this.setSettings();
         this.setValues();
     },
+
 }
 </script>

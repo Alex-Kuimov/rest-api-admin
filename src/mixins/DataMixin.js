@@ -4,6 +4,11 @@ import { data } from "../data/data";
 const DataMixin = {
     methods: {
         getItems(type) {
+
+            if(!this.store.api){
+                return false;
+            }
+
             const formData = new FormData();
             formData.append('method', 'get');
 
