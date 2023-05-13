@@ -32,12 +32,13 @@
 import { loadStore } from "../store/store";
 import AuthMixin from "../mixins/AuthMixin"
 import DataMixin from "../mixins/DataMixin";
+import SettingsMixin from "../mixins/SettingsMixin";
 import FormFields from "./FormFields.vue";
 import StoreForm from "./StoreForm.vue";
 
 export default {
     props:['id'],
-    mixins:[AuthMixin, DataMixin],
+    mixins:[AuthMixin, DataMixin, SettingsMixin],
     components: { FormFields, StoreForm },
     data(){
         return {
@@ -65,6 +66,7 @@ export default {
     },
     mounted() {
         this.checkAuth();
+        this.setSettings();
         this.setValues();
     },
 }

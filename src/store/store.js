@@ -12,8 +12,6 @@ export const initStore = () => {
         store: {},
     });
 
-    const getData = computed(() => state.store);
-
     const updateStore = (val) => {
         state.store = val;
     };

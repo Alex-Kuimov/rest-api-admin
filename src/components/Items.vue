@@ -22,10 +22,11 @@
 <script>
 import DataMixin from '../mixins/DataMixin';
 import AuthMixin from "../mixins/AuthMixin"
+import SettingsMixin from "../mixins/SettingsMixin";
 import { loadStore } from "../store/store";
 
 export default {
-    mixins:[DataMixin, AuthMixin],
+    mixins:[DataMixin, AuthMixin, SettingsMixin],
     methods: {
         toCreateForm(){
             this.$router.push('/'+this.$route.meta.instance+'/create');
@@ -47,6 +48,7 @@ export default {
     },
     mounted() {
         this.checkAuth();
+        this.setSettings();
         this.getItems(this.instance);
     }
 }

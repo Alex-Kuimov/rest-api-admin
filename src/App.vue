@@ -12,7 +12,7 @@ import DataMixin from "./mixins/DataMixin";
 
 export default {
     mixins:[DataMixin],
-    components: {Notification, NavBar},
+    components: { Notification, NavBar },
     setup() {
         initStore();
     },

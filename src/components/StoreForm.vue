@@ -37,11 +37,12 @@ import { loadStore } from "../store/store";
 import AuthMixin from "../mixins/AuthMixin"
 import DataMixin from "../mixins/DataMixin";
 import NotificationMixin from "../mixins/NotificationMixin";
+import SettingsMixin from "../mixins/SettingsMixin";
 import FormFields from "./FormFields.vue";
 
 export default {
     props:['action', 'id'],
-    mixins:[AuthMixin, DataMixin, NotificationMixin],
+    mixins:[AuthMixin, DataMixin, NotificationMixin, SettingsMixin],
     components: {FormFields},
     data(){
         return {
@@ -89,12 +90,13 @@ export default {
     },
     mounted() {
         this.checkAuth();
+        this.setSettings();
         this.setValues();
     },
 }
 </script>
 <style>
-.btn-secondary{
+.btn-secondary {
     margin-right: 5px;
 }
 </style>

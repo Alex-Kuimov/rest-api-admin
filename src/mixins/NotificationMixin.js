@@ -1,4 +1,3 @@
-
 const NotificationMixin = {
     methods: {
         notification(text, type){

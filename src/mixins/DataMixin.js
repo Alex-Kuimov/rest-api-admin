@@ -1,22 +1,18 @@
 import axios from "axios";
 import { data } from "../data/data";
-//import * as process from "eslint-plugin-vue";
 
 const DataMixin = {
     methods: {
         getItems(type) {
-            const token = localStorage['token'];
-            const apiUrl = process.env.VUE_APP_API_URL;
-
             const formData = new FormData();
             formData.append('method', 'get');
 
             axios.post(
-                apiUrl+'/'+type,
+                this.store.api+'/'+type,
                 formData,
                 {
                     headers:{
-                        'Auth': token
+                        'Auth': this.store.token
                     }
                 }
             ).then((res) => {
@@ -29,9 +25,6 @@ const DataMixin = {
             });
         },
         storeItem(item, action){
-            const token = localStorage['token'];
-            const apiUrl = process.env.VUE_APP_API_URL;
-
             const formData = new FormData();
 
             if(action ==='update'){
@@ -50,11 +43,11 @@ const DataMixin = {
             });
 
             axios.post(
-                apiUrl+'/'+item.type,
+                this.store.api+'/'+item.type,
                 formData,
                 {
                     headers:{
-                        'Auth': token
+                        'Auth': this.store.token
                     }
                 }
             ).then((res) => {
@@ -68,20 +61,17 @@ const DataMixin = {
             });
         },
         deleteItem(item){
-            const token = localStorage['token'];
-            const apiUrl = process.env.VUE_APP_API_URL;
-
             const formData = new FormData();
 
             formData.append('id', item.id);
             formData.append('method', 'delete');
 
             axios.post(
-                apiUrl+'/'+item.type,
+                this.store.api+'/'+item.type,
                 formData,
                 {
                     headers:{
-                        'Auth': token
+                        'Auth': this.store.token
                     }
                 }
             ).then((res) => {
