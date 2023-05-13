@@ -28,7 +28,10 @@ export default {
     methods: {
         goTo(item){
             this.$router.push('/'+item.instance);
-            this.getItems(item.instance);
+
+            this.getItems(item.instance).then((items) => {
+                this.store[item.instance] = items;
+            });
         }
     },
     computed:{

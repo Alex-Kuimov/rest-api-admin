@@ -4,7 +4,9 @@
           Назад
         </button>
 
-        <p class="h3 mb-4">{{ item.name }}</p>
+        <p class="h3 mb-4">
+            {{ item.name }}
+        </p>
 
         <p v-if="item.hasOwnProperty('value')"><strong>Значение:</strong> {{ item.value }}</p>
 
@@ -48,6 +50,11 @@ export default {
     },
     computed: {
         item() {
+
+            if(!this.store[this.instance]){
+                return false;
+            }
+
             return {
                 ...this.store[this.instance][this.id],
                 type: this.instance,
@@ -68,7 +75,11 @@ export default {
     mounted() {
         this.checkAuth();
         this.setSettings();
-        this.setValues();
+
+        this.getItems(this.instance).then((items) => {
+            this.store[this.instance] = items
+            this.setValues();
+        });
     },
 
 }

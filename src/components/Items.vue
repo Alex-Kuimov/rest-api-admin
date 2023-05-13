@@ -1,20 +1,24 @@
 <template>
     <div class="container mt-2">
-        <p class="h3">{{title}}</p>
+        <p class="h3">
+            {{ title }}
+        </p>
         <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-primary btn-block mb-2" @click="toCreateForm">
               + Создать
             </button>
         </div>
-        <div v-if="items" class="list-group">
-            <div v-for="(item,index) in items" class="list-group-item list-group-item-action">
-                <router-link :to="'/'+instance+'/' + item.id">
-                    {{ item.name }}
-                </router-link>
+        <div v-if="!this.store.preloader" class="preloader">
+            <div v-if="items" class="list-group">
+                <div v-for="(item,index) in items" class="list-group-item list-group-item-action">
+                    <router-link :to="'/'+instance+'/' + item.id">
+                        {{ item.name }}
+                    </router-link>
+                </div>
             </div>
-        </div>
-        <div v-else>
-            <p>Ничего нет!</p>
+            <div v-else>
+                <p>Ничего нет!</p>
+            </div>
         </div>
     </div>
 </template>
@@ -29,7 +33,7 @@ export default {
     mixins:[DataMixin, AuthMixin, SettingsMixin],
     methods: {
         toCreateForm(){
-            this.$router.push('/'+this.$route.meta.instance+'/create');
+            this.$router.push('/'+this.instance+'/create');
         }
     },
     computed: {
@@ -40,7 +44,7 @@ export default {
             return this.$route.meta.title;
         },
         items(){
-            return this.store[this.$route.meta.instance];
+            return this.store[this.instance];
         }
     },
     setup() {
@@ -49,7 +53,10 @@ export default {
     mounted() {
         this.checkAuth();
         this.setSettings();
-        this.getItems(this.instance);
+
+        this.getItems(this.instance).then((items) => {
+            this.store[this.instance] = items;
+        });
     }
 }
 </script>

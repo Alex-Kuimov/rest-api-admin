@@ -3,16 +3,18 @@ import { data } from "../data/data";
 
 const DataMixin = {
     methods: {
-        getItems(type) {
+         getItems(type) {
 
             if(!this.store.api){
                 return false;
             }
 
+            this.store.preloader = true;
+
             const formData = new FormData();
             formData.append('method', 'get');
 
-            axios.post(
+            return axios.post(
                 this.store.api+'/'+type,
                 formData,
                 {
@@ -21,15 +23,20 @@ const DataMixin = {
                     }
                 }
             ).then((res) => {
+                this.store.preloader = false;
                 if(res.data.success){
-                    this.store[type] = res.data.content;
+                    return res.data.content;
                 }
             }).catch(error => {
+                this.store.preloader = false;
                 this.notification('Возникла ошибка! ', 'danger');
                 console.log(error);
             });
         },
         storeItem(item, action){
+
+            this.store.preloader = true;
+
             const formData = new FormData();
 
             if(action ==='update'){
@@ -56,11 +63,13 @@ const DataMixin = {
                     }
                 }
             ).then((res) => {
+                this.store.preloader = false;
                 if(res.data.success){
                     this.$router.push('/'+item.type);
                     this.notification('Данные обновлены!', 'success');
                 }
             }).catch(error => {
+                this.store.preloader = false;
                 this.notification('Возникла ошибка! ', 'danger');
                 console.log(error);
             });
@@ -90,6 +99,10 @@ const DataMixin = {
             });
         },
         setValues(){
+            if(!this.item){
+                return false;
+            }
+
             const fields = data[this.$route.meta.instance].fields;
 
             for (let key in fields) {

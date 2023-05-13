@@ -20,6 +20,7 @@
                 <div class="col-4">
                     <button type="submit" class="btn btn-primary btn-block">
                         {{ btnTitle }}
+                        <span v-if="this.store.preloader" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     </button>
                 </div>
                 <div class="col-0">
