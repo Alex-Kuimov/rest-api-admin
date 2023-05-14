@@ -22,9 +22,10 @@ import AuthMixin from "../mixins/AuthMixin"
 import DataMixin from '../mixins/DataMixin';
 import { loadStore } from "../store/store";
 import { data } from "../data/data";
+import NotificationMixin from "../mixins/NotificationMixin";
 
 export default {
-    mixins: [AuthMixin, DataMixin],
+    mixins: [AuthMixin, DataMixin, NotificationMixin],
     methods: {
         goTo(item) {
             this.$router.push('/' + item.instance);

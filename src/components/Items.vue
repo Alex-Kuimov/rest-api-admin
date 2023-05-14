@@ -28,9 +28,10 @@ import DataMixin from '../mixins/DataMixin';
 import AuthMixin from "../mixins/AuthMixin"
 import SettingsMixin from "../mixins/SettingsMixin";
 import { loadStore } from "../store/store";
+import NotificationMixin from "../mixins/NotificationMixin";
 
 export default {
-    mixins: [DataMixin, AuthMixin, SettingsMixin],
+    mixins: [DataMixin, AuthMixin, NotificationMixin, SettingsMixin],
     methods: {
         toCreateForm() {
             this.$router.push('/' + this.instance + '/create');

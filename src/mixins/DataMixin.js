@@ -4,7 +4,6 @@ import { data } from "../data/data";
 const DataMixin = {
     methods: {
         getItems(type) {
-
             if (!this.store.api) {
                 return false;
             }
@@ -27,10 +26,9 @@ const DataMixin = {
                 if (res.data.success) {
                     return res.data.content;
                 }
-            }).catch(error => {
+            }).catch((error) => {
                 this.store.preloader = false;
-                this.notification('Возникла ошибка! ', 'danger');
-                console.log(error);
+                this.notification(error.response.data.message, 'danger');
             });
         },
         storeItem(item, action) {
@@ -68,10 +66,9 @@ const DataMixin = {
                     this.$router.push('/' + item.type);
                     this.notification('Данные обновлены!', 'success');
                 }
-            }).catch(error => {
+            }).catch((error) => {
                 this.store.preloader = false;
-                this.notification('Возникла ошибка! ', 'danger');
-                console.log(error);
+                this.notification(error.response.data.message, 'danger');
             });
         },
         deleteItem(item) {
@@ -93,9 +90,9 @@ const DataMixin = {
                     this.$router.push('/' + item.type);
                     this.notification('Данные удалены!', 'success');
                 }
-            }).catch(error => {
-                this.notification('Возникла ошибка! ', 'danger');
-                console.log(error);
+            }).catch((error) => {
+                this.store.preloader = false;
+                this.notification(error.response.data.message, 'danger');
             });
         },
         setValues() {
