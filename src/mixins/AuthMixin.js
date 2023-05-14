@@ -7,11 +7,11 @@ const AuthMixin = {
             this.store.isAuth = false;
             this.store.token = token;
 
-            if(token){
+            if (token) {
                 this.store.isAuth = true;
             }
 
-            if(!this.store.isAuth){
+            if (!this.store.isAuth) {
                 this.$router.push('/');
             }
         },
@@ -22,8 +22,8 @@ const AuthMixin = {
             formData.append('login', this.name);
             formData.append('pass', this.pass);
 
-            axios.post(this.store.api+'/auth/', formData ).then((res) => {
-                if(res.data.success){
+            axios.post(this.store.api + '/auth/', formData).then((res) => {
+                if (res.data.success) {
                     localStorage['token'] = res.data.content;
                     this.store.token = res.data.content;
                     this.store.isAuth = true;
@@ -35,7 +35,7 @@ const AuthMixin = {
                 console.log(error);
             });
         },
-        logOut(){
+        logOut() {
             this.store.token = '';
             localStorage.removeItem('token');
             this.$router.push('/');

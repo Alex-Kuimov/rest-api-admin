@@ -3,9 +3,9 @@ import { data } from "../data/data";
 
 const DataMixin = {
     methods: {
-         getItems(type) {
+        getItems(type) {
 
-            if(!this.store.api){
+            if (!this.store.api) {
                 return false;
             }
 
@@ -15,16 +15,16 @@ const DataMixin = {
             formData.append('method', 'get');
 
             return axios.post(
-                this.store.api+'/'+type,
+                this.store.api + '/' + type,
                 formData,
                 {
-                    headers:{
+                    headers: {
                         'Auth': this.store.token
                     }
                 }
             ).then((res) => {
                 this.store.preloader = false;
-                if(res.data.success){
+                if (res.data.success) {
                     return res.data.content;
                 }
             }).catch(error => {
@@ -33,39 +33,39 @@ const DataMixin = {
                 console.log(error);
             });
         },
-        storeItem(item, action){
+        storeItem(item, action) {
 
             this.store.preloader = true;
 
             const formData = new FormData();
 
-            if(action ==='update'){
+            if (action === 'update') {
                 formData.append('id', this.id);
             }
 
-            if(item.type === 'options'){
+            if (item.type === 'options') {
                 formData.append('value', item.value);
             }
 
             formData.append('method', action);
             formData.append('name', item.name);
 
-            this.fields.forEach(function(field) {
-                formData.append('meta['+field['name']+']', field['value']);
+            this.fields.forEach(function (field) {
+                formData.append('meta[' + field['name'] + ']', field['value']);
             });
 
             axios.post(
-                this.store.api+'/'+item.type,
+                this.store.api + '/' + item.type,
                 formData,
                 {
-                    headers:{
+                    headers: {
                         'Auth': this.store.token
                     }
                 }
             ).then((res) => {
                 this.store.preloader = false;
-                if(res.data.success){
-                    this.$router.push('/'+item.type);
+                if (res.data.success) {
+                    this.$router.push('/' + item.type);
                     this.notification('Данные обновлены!', 'success');
                 }
             }).catch(error => {
@@ -74,23 +74,23 @@ const DataMixin = {
                 console.log(error);
             });
         },
-        deleteItem(item){
+        deleteItem(item) {
             const formData = new FormData();
 
             formData.append('id', item.id);
             formData.append('method', 'delete');
 
             axios.post(
-                this.store.api+'/'+item.type,
+                this.store.api + '/' + item.type,
                 formData,
                 {
-                    headers:{
+                    headers: {
                         'Auth': this.store.token
                     }
                 }
             ).then((res) => {
-                if(res.data.success){
-                    this.$router.push('/'+item.type);
+                if (res.data.success) {
+                    this.$router.push('/' + item.type);
                     this.notification('Данные удалены!', 'success');
                 }
             }).catch(error => {
@@ -98,8 +98,8 @@ const DataMixin = {
                 console.log(error);
             });
         },
-        setValues(){
-            if(!this.item){
+        setValues() {
+            if (!this.item) {
                 return false;
             }
 
@@ -107,8 +107,8 @@ const DataMixin = {
 
             for (let key in fields) {
                 const field = fields[key];
-                const value = this.item.meta[field.name] ? this.item.meta[field.name]: '';
-                this.fields.push({...field, value: value })
+                const value = this.item.meta[field.name] ? this.item.meta[field.name] : '';
+                this.fields.push({ ...field, value: value })
             }
         }
     }

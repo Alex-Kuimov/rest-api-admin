@@ -5,13 +5,13 @@
         </p>
         <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-primary btn-block mb-2" @click="toCreateForm">
-              + Создать
+                + Создать
             </button>
         </div>
         <div v-if="!this.store.preloader" class="preloader">
             <div v-if="items" class="list-group">
-                <div v-for="(item,index) in items" class="list-group-item list-group-item-action">
-                    <router-link :to="'/'+instance+'/' + item.id">
+                <div v-for="item in items" :key="item.id" class="list-group-item list-group-item-action">
+                    <router-link :to="'/' + instance + '/' + item.id">
                         {{ item.name }}
                     </router-link>
                 </div>
@@ -30,20 +30,20 @@ import SettingsMixin from "../mixins/SettingsMixin";
 import { loadStore } from "../store/store";
 
 export default {
-    mixins:[DataMixin, AuthMixin, SettingsMixin],
+    mixins: [DataMixin, AuthMixin, SettingsMixin],
     methods: {
-        toCreateForm(){
-            this.$router.push('/'+this.instance+'/create');
+        toCreateForm() {
+            this.$router.push('/' + this.instance + '/create');
         }
     },
     computed: {
         instance() {
             return this.$route.meta.instance;
         },
-        title(){
+        title() {
             return this.$route.meta.title;
         },
-        items(){
+        items() {
             return this.store[this.instance];
         }
     },

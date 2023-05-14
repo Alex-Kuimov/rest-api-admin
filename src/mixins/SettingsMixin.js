@@ -1,6 +1,6 @@
 const SettingsMixin = {
     methods: {
-        setSettings(){
+        setSettings() {
             this.store.api = process.env.VUE_APP_API_URL;
         }
     }

@@ -5,7 +5,7 @@
 
             <div class="d-flex">
                 <ul class="navbar-nav ml-auto">
-                    <li v-for="item in items" class="nav-item" @click="goTo(item)">
+                    <li v-for="item in items" :key="item.id" class="nav-item" @click="goTo(item)">
                         <span class="nav-link">{{ item.title }}</span>
                     </li>
                     <li class="nav-item" @click="logOut">
@@ -24,18 +24,18 @@ import { loadStore } from "../store/store";
 import { data } from "../data/data";
 
 export default {
-    mixins:[AuthMixin, DataMixin],
+    mixins: [AuthMixin, DataMixin],
     methods: {
-        goTo(item){
-            this.$router.push('/'+item.instance);
+        goTo(item) {
+            this.$router.push('/' + item.instance);
 
             this.getItems(item.instance).then((items) => {
                 this.store[item.instance] = items;
             });
         }
     },
-    computed:{
-        items(){
+    computed: {
+        items() {
             const result = [];
             for (let key in data) {
                 const item = data[key];

@@ -19,7 +19,7 @@ export const data = {
             }
         }
     },
-    tasks : {
+    tasks: {
         title: 'Задачи',
         instance: 'tasks',
         fields: {
@@ -39,7 +39,7 @@ export const data = {
             },
         }
     },
-    books : {
+    books: {
         title: 'Книги',
         instance: 'books',
         fields: {
@@ -59,7 +59,7 @@ export const data = {
             }
         }
     },
-    articles : {
+    articles: {
         title: 'Статьи',
         instance: 'articles',
         fields: {
